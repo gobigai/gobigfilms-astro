@@ -1,0 +1,470 @@
+---
+export interface Props {
+  title: string;
+  description?: string;
+  ogImage?: string;
+  canonicalURL?: string;
+}
+
+const { 
+  title, 
+  description = "Creative photography and video production services for business and artists in Salt Lake City Utah",
+  ogImage = "https://gobigfilms.com/images/gobig-films-logo-blue-600x600.png",
+  canonicalURL = Astro.url.href
+} = Astro.props;
+
+const siteName = "GoBig Films";
+const fullTitle = title === siteName ? title : `${title} — ${siteName}`;
+---
+
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={siteName} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="600" />
+    <meta property="og:image:height" content="600" />
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:url" content={canonicalURL} />
+    <meta name="twitter:image" content={ogImage} />
+    
+    <!-- Schema.org -->
+    <meta itemprop="name" content={fullTitle} />
+    <meta itemprop="description" content={description} />
+    <meta itemprop="url" content={canonicalURL} />
+    <meta itemprop="thumbnailUrl" content={ogImage} />
+    <meta itemprop="image" content={ogImage} />
+    <link rel="image_src" href={ogImage} />
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    
+    <!-- Preconnect to Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    
+    <!-- Global Styles -->
+    <link rel="stylesheet" href="/src/styles/global.css" />
+    
+    <!-- Schema.org JSON-LD -->
+    <script type="application/ld+json">
+      {
+        "@context": "http://schema.org",
+        "@type": "WebSite",
+        "url": "https://gobigfilms.com",
+        "name": "GoBig Films",
+        "image": "https://gobigfilms.com/images/gobig-films-logo-white-transparent.png"
+      }
+    </script>
+    
+    <script type="application/ld+json">
+      {
+        "@context": "http://schema.org",
+        "@type": "LocalBusiness",
+        "image": "https://gobigfilms.com/images/gobig-films-logo-blue-600x600.png",
+        "address": "",
+        "openingHours": ""
+      }
+    </script>
+  </head>
+  
+  <body 
+    id="collection-home" 
+    class="primary-button-style-solid primary-button-shape-pill secondary-button-style-outline secondary-button-shape-pill tertiary-button-style-outline tertiary-button-shape-underline header-overlay-alignment-center header-width-inset collection-type-page homepage mobile-style-available"
+    tabindex="-1"
+  >
+    <div id="siteWrapper" class="clearfix site-wrapper">
+      <!-- Header -->
+      <header 
+        data-test="header" 
+        id="header" 
+        class="header-overlay header theme-col--primary"
+        data-section-theme="bright-inverse"
+      >
+        <div class="header-inner">
+          <nav class="navigation">
+            <!-- Logo -->
+            <div class="header-logo-wrapper">
+              <a href="/" class="header-logo-link">
+                <img 
+                  src="/images/gobig-films-logo-white-transparent.png" 
+                  alt="GoBig Films" 
+                  class="header-logo"
+                />
+              </a>
+            </div>
+            
+            <!-- Mobile Menu Button -->
+            <button class="mobile-menu-toggle" aria-label="Toggle navigation menu">
+              <span class="hamburger-line"></span>
+              <span class="hamburger-line"></span>
+              <span class="hamburger-line"></span>
+            </button>
+            
+            <!-- Navigation Links -->
+            <div class="nav-links">
+              <div class="nav-folder">
+                <span class="nav-folder-title">Video</span>
+                <div class="nav-folder-content">
+                  <a href="/utah-video-production" class="nav-link">Utah Video Production</a>
+                  <a href="/utah-corporate-video" class="nav-link">Utah Corporate Video</a>
+                  <a href="/music-video-production" class="nav-link">Music Video Production</a>
+                  <a href="/brand-stories" class="nav-link">Brand Stories</a>
+                  <a href="/fashion-flms" class="nav-link">Fashion Films</a>
+                </div>
+              </div>
+              
+              <div class="nav-folder">
+                <span class="nav-folder-title">Photography</span>
+                <div class="nav-folder-content">
+                  <a href="/commercial-photography" class="nav-link">Commercial Photography</a>
+                  <a href="/fashion-photography" class="nav-link">Fashion Photography</a>
+                  <a href="/lifestyle-photography" class="nav-link">Lifestyle Photography</a>
+                  <a href="/headshots" class="nav-link">Headshots</a>
+                </div>
+              </div>
+              
+              <a href="/about" class="nav-link">About</a>
+              <a href="/contact" class="nav-link">Contact</a>
+            </div>
+            
+            <!-- CTA Button -->
+            <div class="header-cta">
+              <a href="tel:4352815900" class="btn btn-primary">
+                Call Now (435) 281-5900
+              </a>
+            </div>
+          </nav>
+        </div>
+      </header>
+      
+      <!-- Main Content -->
+      <main id="page" role="main">
+        <slot />
+      </main>
+      
+      <!-- Footer will go here eventually -->
+    </div>
+    
+    <!-- Mobile Menu JavaScript -->
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const mobileToggle = document.querySelector('.mobile-menu-toggle');
+        const navLinks = document.querySelector('.nav-links');
+        
+        mobileToggle.addEventListener('click', function() {
+          navLinks.classList.toggle('mobile-open');
+          mobileToggle.classList.toggle('active');
+        });
+        
+        // Close menu when clicking on a link
+        document.querySelectorAll('.nav-link').forEach(link => {
+          link.addEventListener('click', function() {
+            navLinks.classList.remove('mobile-open');
+            mobileToggle.classList.remove('active');
+          });
+        });
+      });
+    </script>
+    
+    <!-- Analytics placeholder - will add Google Analytics later -->
+  </body>
+</html>
+
+<style>
+  /* Reset body margins for full screen */
+  body {
+    margin: 0;
+    padding: 0;
+  }
+  
+  #siteWrapper {
+    margin: 0;
+    padding: 0;
+  }
+  
+  main {
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Header overlay styles matching original */
+  .header-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    padding: 1rem 0;
+    background: transparent;
+  }
+  
+  .header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: var(--maxPageWidth);
+    margin: 0 auto;
+    padding: 0 var(--pagePadding);
+  }
+  
+  .navigation {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    position: relative;
+  }
+  
+  .header-logo-wrapper {
+    flex-shrink: 0;
+  }
+  
+  .header-logo {
+    height: 120px;
+    width: auto;
+    display: block;
+  }
+  
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    justify-content: center;
+    flex: 1;
+    margin: 0 2rem;
+  }
+  
+  .nav-folder {
+    position: relative;
+  }
+  
+  .nav-folder-title {
+    color: var(--navigationLinkColor);
+    font-weight: 400;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    font-size: 1rem;
+  }
+  
+  .nav-folder-content {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: rgba(0, 0, 0, 0.9);
+    min-width: 200px;
+    border-radius: 8px;
+    padding: 1rem 0;
+    margin-top: 0.5rem;
+  }
+  
+  .nav-folder:hover .nav-folder-content {
+    display: block;
+  }
+  
+  .nav-folder-content .nav-link {
+    display: block;
+    padding: 0.5rem 1rem;
+    color: white;
+    text-decoration: none;
+  }
+  
+  .nav-folder-content .nav-link:hover {
+    background: rgba(255, 255, 255, 0.1);
+  }
+  
+  .nav-link {
+    color: var(--navigationLinkColor);
+    font-weight: 400;
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+    font-size: 1rem;
+  }
+  
+  .nav-link:hover {
+    opacity: 0.8;
+  }
+  
+  .header-cta {
+    flex-shrink: 0;
+  }
+  
+  /* Mobile Menu Toggle */
+  .mobile-menu-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 30px;
+    height: 30px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 1001;
+  }
+  
+  .hamburger-line {
+    width: 30px;
+    height: 3px;
+    background: white;
+    border-radius: 3px;
+    transition: all 0.3s ease;
+    transform-origin: 1px;
+  }
+  
+  .mobile-menu-toggle.active .hamburger-line:nth-child(1) {
+    transform: rotate(45deg);
+  }
+  
+  .mobile-menu-toggle.active .hamburger-line:nth-child(2) {
+    opacity: 0;
+  }
+  
+  .mobile-menu-toggle.active .hamburger-line:nth-child(3) {
+    transform: rotate(-45deg);
+  }
+
+  /* Mobile Header */
+  @media (max-width: 1200px) {
+    .nav-links {
+      gap: 1rem;
+    }
+    
+    .header-logo {
+      height: 80px;
+    }
+  }
+  
+  @media (max-width: 992px) {
+    .header-inner {
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 1rem;
+    }
+    
+    .navigation {
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      flex-direction: row;
+    }
+    
+    .header-logo-wrapper {
+      order: 1;
+    }
+    
+    .mobile-menu-toggle {
+      display: flex;
+      order: 3;
+    }
+    
+    .nav-links {
+      order: 2;
+      flex: none;
+      margin: 0;
+    }
+    
+    .nav-links {
+      position: fixed !important;
+      top: 0 !important;
+      right: -100% !important;
+      height: 100vh !important;
+      width: 280px !important;
+      background: rgba(0, 0, 0, 0.95) !important;
+      backdrop-filter: blur(10px) !important;
+      flex-direction: column !important;
+      justify-content: flex-start !important;
+      align-items: flex-start !important;
+      padding: 80px 30px 30px 30px !important;
+      transition: right 0.3s ease !important;
+      z-index: 1000 !important;
+      margin: 0 !important;
+      display: flex !important;
+    }
+    
+    .nav-links.mobile-open {
+      right: 0 !important;
+    }
+    
+    .nav-folder {
+      width: 100%;
+      margin-bottom: 1rem;
+    }
+    
+    .nav-folder-title {
+      color: white;
+      font-size: 1.2rem;
+      font-weight: 600;
+      padding: 1rem 0;
+      border-bottom: 1px solid #333;
+      width: 100%;
+      display: block;
+    }
+    
+    .nav-folder-content {
+      display: block !important;
+      position: static;
+      background: transparent;
+      padding: 0;
+      margin: 0;
+      min-width: auto;
+      border-radius: 0;
+    }
+    
+    .nav-folder-content .nav-link {
+      padding: 0.8rem 0 0.8rem 1rem;
+      font-size: 1rem;
+      color: #ccc;
+    }
+    
+    .nav-link {
+      width: 100%;
+      padding: 1rem 0;
+      font-size: 1.2rem;
+      color: white;
+      border-bottom: 1px solid #333;
+    }
+    
+    .header-cta {
+      display: none;
+    }
+    
+    /* Hide desktop nav links on mobile */
+    .nav-links:not(.mobile-open) {
+      display: none !important;
+    }
+    
+    .header-logo {
+      height: 50px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .header-logo {
+      height: 40px;
+    }
+    
+    .nav-links {
+      width: 100%;
+      right: -100%;
+    }
+  }
+</style>
