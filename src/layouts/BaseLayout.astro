@@ -64,7 +64,7 @@ const fullTitle = title === siteName ? title : `${title} — ${siteName}`;
     <link rel="stylesheet" href="/src/styles/global.css" />
     
     <!-- Schema.org JSON-LD -->
-    <script type="application/ld+json">
+    <script type="application/ld+json" is:inline>
       {
         "@context": "http://schema.org",
         "@type": "WebSite",
@@ -74,7 +74,7 @@ const fullTitle = title === siteName ? title : `${title} — ${siteName}`;
       }
     </script>
     
-    <script type="application/ld+json">
+    <script type="application/ld+json" is:inline>
       {
         "@context": "http://schema.org",
         "@type": "LocalBusiness",
@@ -164,23 +164,25 @@ const fullTitle = title === siteName ? title : `${title} — ${siteName}`;
     </div>
     
     <!-- Mobile Menu JavaScript -->
-    <script>
+    <script is:inline>
       document.addEventListener('DOMContentLoaded', function() {
         const mobileToggle = document.querySelector('.mobile-menu-toggle');
         const navLinks = document.querySelector('.nav-links');
         
-        mobileToggle.addEventListener('click', function() {
-          navLinks.classList.toggle('mobile-open');
-          mobileToggle.classList.toggle('active');
-        });
-        
-        // Close menu when clicking on a link
-        document.querySelectorAll('.nav-link').forEach(link => {
-          link.addEventListener('click', function() {
-            navLinks.classList.remove('mobile-open');
-            mobileToggle.classList.remove('active');
+        if (mobileToggle && navLinks) {
+          mobileToggle.addEventListener('click', function() {
+            navLinks.classList.toggle('mobile-open');
+            mobileToggle.classList.toggle('active');
           });
-        });
+          
+          // Close menu when clicking on a link
+          document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function() {
+              navLinks.classList.remove('mobile-open');
+              mobileToggle.classList.remove('active');
+            });
+          });
+        }
       });
     </script>
     
